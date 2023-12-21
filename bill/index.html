@@ -1,0 +1,291 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    
+	<meta name="robots" content="index, follow">
+    <link rel="shortcut icon" type="image/png" href="../favicon.png">
+    
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css?9307">
+	<link rel="stylesheet" type="text/css" href="../style.css?5972">
+	<link rel="stylesheet" type="text/css" href="../css/animate.min.css?5792">
+	<link rel="stylesheet" type="text/css" href="../css/all.min.css">
+	<link href='https://fonts.googleapis.com/css?family=Lobster&display=swap&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <title>Bill</title>
+
+
+    
+<!-- Analytics -->
+ 
+<!-- Analytics END -->
+    
+</head>
+<body data-clean-url="true">
+
+<!-- Preloader -->
+<div id="page-loading-blocs-notifaction" class="page-preloader"></div>
+<!-- Preloader END -->
+
+
+<!-- Main container -->
+<div class="page-container">
+    
+<!-- bloc-2 -->
+<div class="bloc bloc-fill-screen bg-johan-mouchet-Z95viY3WaZs-unsplash-281-29 d-bloc bloc-bg-texture texture-darken" id="bloc-2">
+	<div class="container fill-bloc-top-edge">
+		<div class="row">
+			<div class="col-12">
+				<div class="row">
+					<div class="col-12">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h3 class="mg-md float-none text-center tc-3849 h3-style text-sm-center">
+					Welcome to Momo Bill Catculator<br>
+				</h3>
+				<h2 class="mb-4 text-lg-center h2-style text-sm-center text-center">
+					Momo will help you split the bill if you let her know how much things cost
+				</h2>
+				<div class="row">
+					<div class="col text-lg-end mt-lg-1">
+						<a href="#" class="btn btn-lg btn-c-3849" data-scroll-speed="1000" onclick="scrollToTarget('0',this)">Get Started</a>
+					</div>
+					<div class="col">
+						<div class="text-center mt-lg-1 text-lg-start">
+							<a href="../" class="btn btn-lg btn-c-802"><span class="icon-spacer none fa fa-home icon-1722"></span>Go Home</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container fill-bloc-bottom-edge">
+		<div class="row">
+			<div class="col-12">
+				<div class="text-center">
+					<a href="#" data-scroll-speed="1000" onclick="scrollToTarget('0',this)"><span class="fa fa-angle-down icon-md animated bounce animDelay08"></span></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- bloc-2 END -->
+
+<!-- bloc-2 -->
+<div class="bloc l-bloc full-width-bloc" id="bloc-2">
+	<div class="container bloc-no-padding">
+		<div class="row">
+			<div class="col-12">
+				<div>
+					<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <!-- BULMA CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    
+    <!-- PYSCRIPT -->
+    <script defer="" src="https://pyscript.net/alpha/pyscript.js"></script>
+    <py-env></py-env>
+
+    <style>
+        .tooltip.is-tooltip-multiline::before { white-space:pre-line }
+    </style>
+
+  
+  
+
+    <!-- UI -->
+    <div id="div1" class="container bloc-no-padding-lg">
+        <div class="section">
+            <div class="box">
+                <progress id="progress" class="progress is-info" value="0" max="100"></progress>
+
+                <div id="div_total" class="field">
+                    <label class="label">Enter bill subtotal (amount before tax)</label>
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input id="i_total" class="input" type="text" placeholder="e.g., 100">
+                        </div>
+                        <div class="control">
+                            <button id="submit_total" class="button is-info" type="submit" pys-onclick="calc_tips">Apply</button>
+                        </div>
+                    </div>
+                    <p id="field_tips" class="help" style="white-space: pre-line"></p>
+                </div>
+
+                <div id="div_tip" style="display:none;" class="field">
+                    <label class="label">Enter tip</label>
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input id="i_tip" class="input" type="text" placeholder="e.g., 10">
+                        </div>
+                        <div class="control">
+                            <button id="submit_tip" class="button is-info" type="submit" pys-onclick="calc_total_w_tip">Apply</button>
+                        </div>
+                    </div>
+                    <p id="field_total_w_tip" class="help"></p>
+                </div>
+
+                <div id="div_discount" style="display:none;" class="field">
+                    <label class="label">Enter discount</label>
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input id="i_discount" class="input" type="text" value="0">
+                        </div>
+                        <div class="control">
+                            <button id="submit_discount" class="button is-info" type="submit" pys-onclick="calc_total_w_tip_discount">Apply</button>
+                        </div>
+                    </div>
+                    <p id="field_total_w_tip_discount" class="help"></p>
+                </div>
+
+                <div id="div_tax" style="display:none;" class="field">
+                    <label class="label">Enter tax in percentage</label>
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input id="i_tax" class="input" type="text" value="8.25">
+                        </div>
+                        <div class="control">
+                            <button id="submit_tax" class="button is-info" type="submit" pys-onclick="calc_total_w_tip_discount_tax">Apply</button>
+                        </div>
+                    </div>
+                    <p id="field_total_w_tip_discount_tax" class="help"></p>
+                </div>
+
+                <div id="div_cost" style="display:none;" class="field">
+                    <label class="label">Enter your cost before tax to see how much you need to pay back the person who paid the bill</label>
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input id="i_cost" class="input is-primary" type="text" placeholder="e.g., 5">
+                            <label id="i_cost_label" class="tag">+, -, *, / allowed</label>
+                        </div>
+                        <div class="control">
+                            <button id="submit_cost" class="button is-primary" type="submit" pys-onclick="calc_cost">Catculate</button>
+                        </div>
+                    </div>
+                    <article class="message">
+                        <div id="individual_cost" class="message-body" style="white-space: pre-line"></div>
+                    </article>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+<py-script>
+total = 0
+tip = 0
+discount = 0
+tax = 0
+cost = 0
+
+def calc_tips(*args, **kwargs):
+    global total
+    total = document.getElementById('i_total')
+    total = float(total.value)
+
+    tip_15_perc = round(total * 0.15, 2)
+    tip_17_perc = round(total * 0.17, 2)
+    tip_20_perc = round(total * 0.20, 2)
+
+    log_tips = document.getElementById('field_tips')
+    log_tips.innerHTML = '15% tip = $' + '{0:.2f}'.format(tip_15_perc) + '\n 17% tip = $' + '{0:.2f}'.format(tip_17_perc) + '\n 20% tip = $' + '{0:.2f}'.format(tip_20_perc)
+
+    document.getElementById('div_tip').style.display = 'block'
+    document.getElementById('progress').value = 20
+
+def calc_total_w_tip(*args, **kwargs):
+    global total, total_w_tip, tip
+    tip = document.getElementById('i_tip')
+    tip = float(tip.value)
+
+    tip_perc = round(tip / total * 100, 2)
+    total_w_tip = round(total + tip, 2)
+
+    log_total_w_tip = document.getElementById('field_total_w_tip')
+    log_total_w_tip.innerHTML = 'Total + tip = $' + '{0:.2f}'.format(total_w_tip) + ' (' + '{0:.1f}'.format(tip_perc) + '% tip)'
+
+    document.getElementById('div_discount').style.display = 'block'
+    document.getElementById('progress').value = 40
+
+
+def calc_total_w_tip_discount(*args, **kwargs):
+    global total, total_w_tip, tip, total_w_tip, discount
+    discount = document.getElementById('i_discount')
+    discount = float(discount.value)
+
+    total_w_tip_discount = round(total_w_tip - discount, 2)
+
+    log_total_w_tip_discount = document.getElementById('field_total_w_tip_discount')
+    log_total_w_tip_discount.innerHTML = 'Total + tip - discount = $' + '{0:.2f}'.format(total_w_tip_discount)
+
+    document.getElementById('div_tax').style.display = 'block'
+    document.getElementById('progress').value = 60
+
+def calc_total_w_tip_discount_tax(*args, **kwargs):
+    global total, total_w_tip, tip, total_w_tip, discount, tax
+    tax = document.getElementById('i_tax')
+    tax = float(tax.value)
+
+    total_w_tip_discount_tax = round((total - discount) * (tax / 100 + 1) + tip, 2)
+
+    log_total_w_tip_discount_tax = document.getElementById('field_total_w_tip_discount_tax')
+    log_total_w_tip_discount_tax.innerHTML = 'Total + tip - discount + tax = $' + '{0:.2f}'.format(total_w_tip_discount_tax)
+
+    document.getElementById('div_cost').style.display = 'block'
+    document.getElementById('progress').value = 80
+
+def calc_cost(*args, **kwargs):
+    global total, total_w_tip, tip, total_w_tip, discount, tax, cost
+    cost = document.getElementById('i_cost')
+    cost = float(safe_math_eval(cost.value))
+
+    total_w_discount_tax = (total - discount) * (tax / 100 + 1)
+    cost_w_discount_tax = cost * (total - discount) / total * (tax / 100 + 1)
+    perc_of_tip = round(cost_w_discount_tax / total_w_discount_tax * 100, 2)
+    pay = round(cost_w_discount_tax + cost_w_discount_tax / total_w_discount_tax * tip, 2)
+
+    log_individual_cost = document.getElementById('individual_cost')
+    log_individual_cost.innerHTML += '$' + '{0:.2f}'.format(cost) + ' ➡️ $' + '{0:.2f}'.format(pay) + ' (includes ' + '{0:.1f}'.format(perc_of_tip) + '% of tip)\n'
+
+    document.getElementById('progress').value = 100
+    document.getElementById('progress').className = "progress is-success"
+
+def safe_math_eval(string):
+    allowed_chars = "0123456789+-*(). /"
+    for char in string:
+        if char not in allowed_chars:
+            raise Exception("Unsafe eval")
+
+    return eval(string, {"__builtins__": None}, {})
+
+</py-script>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- bloc-2 END -->
+
+</div>
+<!-- Main container END -->
+    
+
+
+<!-- Additional JS -->
+<script src="../js/bootstrap.bundle.min.js?731"></script>
+<script src="../js/blocs.min.js?1309"></script>
+<script src="../js/lazysizes.min.js" defer></script><!-- Additional JS END -->
+
+
+</body>
+</html>

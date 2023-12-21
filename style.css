@@ -1,0 +1,1178 @@
+/*-----------------------------------------------------------------------------------
+	emeow
+	About: A shiny new Blocs website.
+	Author: Norman Sheeran
+	Version: 1.0
+	Built with Blocs
+-----------------------------------------------------------------------------------*/
+body{
+	margin:0;
+	padding:0;
+    background:var(--swatch-var-970);
+    overflow-x:hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.page-container{overflow: hidden;} /* Prevents unwanted scroll space when scroll FX used. */
+a,button{transition: background .3s ease-in-out;outline: none!important;} /* Prevent blue selection glow on Chrome and Safari */
+a:hover{text-decoration: none; cursor:pointer;}
+.scroll-fx-lock-init{position:fixed!important;top: 0;bottom: 0;left: :0;right: 0;z-index:99999;} /* ScrollFX Lock */
+.blocs-grid-container{display: grid!important;grid-template-columns: 1fr 1fr;grid-template-rows: auto auto;column-gap: 1.5rem;row-gap: 1.5rem;} /* CSS Grid */
+nav .dropdown-menu .nav-link{color:rgba(0,0,0,0.6)!important;} /* Maintain Downdown Menu Link Color in Navigation */
+[data-bs-theme="dark"] nav .dropdown-menu .nav-link{color:var(--bs-dropdown-link-color)!important;} /* Maintain Downdown Menu Link Color in Navigation in Darkmode */
+
+
+/* Preloader */
+
+.page-preloader{position: fixed;top: 0;bottom: 0;width: 100%;z-index:100000;background:#FFFFFF url("img/pageload-spinner.gif") no-repeat center center;animation-name: preloader-fade;animation-delay: 2s;animation-duration: 0.5s;animation-fill-mode: both;}
+.preloader-complete{animation-delay:0.1s;}
+@keyframes preloader-fade {0% {opacity: 1;visibility: visible;}100% {opacity: 0;visibility: hidden;}}
+
+/* = Blocs
+-------------------------------------------------------------- */
+
+.bloc{
+	width:100%;
+	clear:both;
+	background: 50% 50% no-repeat;
+	padding:0 20px;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	position:relative;
+	display:flex;
+}
+.bloc .container{
+	padding-left:0;
+	padding-right:0;
+	position:relative;
+}
+
+
+/* Sizes */
+
+.bloc-lg{
+	padding:100px 20px;
+}
+.bloc-md{
+	padding:50px 20px;
+}
+
+/* = Full Screen Blocs 
+-------------------------------------------------------------- */
+
+.bloc-fill-screen{
+	min-height:100vh;
+	display: flex;
+	flex-direction: column;
+	padding-top:20px;
+	padding-bottom:20px;
+}
+.bloc-fill-screen > .container{
+	align-self: flex-middle;
+	flex-grow: 1;
+	display: flex;
+	flex-wrap: wrap;
+}
+.bloc-fill-screen > .container > .row{
+	flex-grow: 1;
+	align-self: center;
+	width:100%;
+}
+.bloc-fill-screen .fill-bloc-top-edge, .bloc-fill-screen .fill-bloc-bottom-edge{
+	flex-grow: 0;
+}
+.bloc-fill-screen .fill-bloc-top-edge{
+	align-self: flex-start;
+}
+.bloc-fill-screen .fill-bloc-bottom-edge{
+	align-self: flex-end;
+}
+
+/* = Full Width Blocs 
+-------------------------------------------------------------- */
+
+.full-width-bloc{
+	padding-left:0;
+	padding-right:0;
+}
+.full-width-bloc .row{
+	margin-left:0;
+	margin-right:0;
+}
+.full-width-bloc .container{
+	width:100%;
+	max-width:100%!important;
+}
+.full-width-bloc .carousel img{
+	width:100%;
+	height:auto;
+}
+
+
+/* Background Textures */
+
+.bloc-bg-texture::before{
+	content:"";
+	background-size: 2px 2px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left:0;
+	right:0;
+}
+.texture-geometry-shapes::before{
+	background: url("img/texture-geometry-shapes.png");
+	background-size: 280px 280px;
+}
+.texture-darken::before{
+	background: rgba(0,0,0,0.5);
+}
+
+
+/* Dark theme */
+
+.d-bloc{
+	color:rgba(255,255,255,.7);
+}
+.d-bloc button:hover{
+	color:rgba(255,255,255,.9);
+}
+.d-bloc .icon-round,.d-bloc .icon-square,.d-bloc .icon-rounded,.d-bloc .icon-semi-rounded-a,.d-bloc .icon-semi-rounded-b{
+	border-color:rgba(255,255,255,.9);
+}
+.d-bloc .divider-h span{
+	border-color:rgba(255,255,255,.2);
+}
+.d-bloc .a-btn,.d-bloc .navbar a, .d-bloc a .icon-sm, .d-bloc a .icon-md, .d-bloc a .icon-lg, .d-bloc a .icon-xl, .d-bloc h1 a, .d-bloc h2 a, .d-bloc h3 a, .d-bloc h4 a, .d-bloc h5 a, .d-bloc h6 a, .d-bloc p a{
+	color:rgba(255,255,255,.6);
+}
+.d-bloc .a-btn:hover,.d-bloc .navbar a:hover,.d-bloc a:hover .icon-sm, .d-bloc a:hover .icon-md, .d-bloc a:hover .icon-lg, .d-bloc a:hover .icon-xl, .d-bloc h1 a:hover, .d-bloc h2 a:hover, .d-bloc h3 a:hover, .d-bloc h4 a:hover, .d-bloc h5 a:hover, .d-bloc h6 a:hover, .d-bloc p a:hover{
+	color:rgba(255,255,255,1);
+}
+.d-bloc .navbar-toggle .icon-bar{
+	background:rgba(255,255,255,1);
+}
+.d-bloc .btn-wire,.d-bloc .btn-wire:hover{
+	color:rgba(255,255,255,1);
+	border-color:rgba(255,255,255,1);
+}
+.d-bloc .card{
+	color:rgba(0,0,0,.5);
+}
+.d-bloc .card button:hover{
+	color:rgba(0,0,0,.7);
+}
+.d-bloc .card icon{
+	border-color:rgba(0,0,0,.7);
+}
+.d-bloc .card .divider-h span{
+	border-color:rgba(0,0,0,.1);
+}
+.d-bloc .card .a-btn{
+	color:rgba(0,0,0,.6);
+}
+.d-bloc .card .a-btn:hover{
+	color:rgba(0,0,0,1);
+}
+.d-bloc .card .btn-wire, .d-bloc .card .btn-wire:hover{
+	color:rgba(0,0,0,.7);
+	border-color:rgba(0,0,0,.3);
+}
+
+
+/* Light theme */
+
+.d-bloc .card,.l-bloc{
+	color:rgba(0,0,0,.5);
+}
+.d-bloc .card button:hover,.l-bloc button:hover{
+	color:rgba(0,0,0,.7);
+}
+.l-bloc .icon-round,.l-bloc .icon-square,.l-bloc .icon-rounded,.l-bloc .icon-semi-rounded-a,.l-bloc .icon-semi-rounded-b{
+	border-color:rgba(0,0,0,.7);
+}
+.d-bloc .card .divider-h span,.l-bloc .divider-h span{
+	border-color:rgba(0,0,0,.1);
+}
+.d-bloc .card .a-btn,.l-bloc .a-btn,.l-bloc .navbar a,.l-bloc a .icon-sm, .l-bloc a .icon-md, .l-bloc a .icon-lg, .l-bloc a .icon-xl, .l-bloc h1 a, .l-bloc h2 a, .l-bloc h3 a, .l-bloc h4 a, .l-bloc h5 a, .l-bloc h6 a, .l-bloc p a{
+	color:rgba(0,0,0,.6);
+}
+.d-bloc .card .a-btn:hover,.l-bloc .a-btn:hover,.l-bloc .navbar a:hover, .l-bloc a:hover .icon-sm, .l-bloc a:hover .icon-md, .l-bloc a:hover .icon-lg, .l-bloc a:hover .icon-xl, .l-bloc h1 a:hover, .l-bloc h2 a:hover, .l-bloc h3 a:hover, .l-bloc h4 a:hover, .l-bloc h5 a:hover, .l-bloc h6 a:hover, .l-bloc p a:hover{
+	color:rgba(0,0,0,1);
+}
+.l-bloc .navbar-toggle .icon-bar{
+	color:rgba(0,0,0,.6);
+}
+.d-bloc .card .btn-wire,.d-bloc .card .btn-wire:hover,.l-bloc .btn-wire,.l-bloc .btn-wire:hover{
+	color:rgba(0,0,0,.7);
+	border-color:rgba(0,0,0,.3);
+}
+
+/* Row Margin Offsets */
+
+.voffset{
+	margin-top:30px;
+}
+
+
+/* = NavBar
+-------------------------------------------------------------- */
+
+/* Navbar Icon */
+.svg-menu-icon{
+	fill: none;
+	stroke: rgba(0,0,0,0.5);
+	stroke-width: 2px;
+	fill-rule: evenodd;
+}
+.navbar-dark .svg-menu-icon{
+	stroke: rgba(255,255,255,0.5);
+}
+.menu-icon-thin-bars{
+	stroke-width: 1px;
+}
+.menu-icon-thick-bars{
+	stroke-width: 5px;
+}
+.menu-icon-rounded-bars{
+	stroke-width: 3px;
+	stroke-linecap: round;
+}
+.menu-icon-filled{
+	fill: rgba(0,0,0,0.5);
+	stroke-width: 0px;
+}
+.navbar-dark .menu-icon-filled{
+	fill: rgba(255,255,255,0.5);
+}
+.navbar-toggler-icon{
+	background: none!important;
+	pointer-events: none;
+	width: 33px;
+	height: 33px;
+}
+/* Handle Multi Level Navigation */
+.dropdown-menu .dropdown-menu{
+	border:none}
+@media (min-width:576px){
+	
+.navbar-expand-sm .dropdown-menu .dropdown-menu{
+	border:1px solid rgba(0,0,0,.15);
+	position:absolute;
+	left:100%;
+	top:-7px}.navbar-expand-sm .dropdown-menu .submenu-left{
+	right:100%;
+	left:auto}}@media (min-width:768px){
+	.navbar-expand-md .dropdown-menu .dropdown-menu{
+	border:1px solid rgba(0,0,0,.15);
+	border:1px solid rgba(0,0,0,.15);
+	position:absolute;
+	left:100%;
+	top:-7px}.navbar-expand-md .dropdown-menu .submenu-left{
+	right:100%;
+	left:auto}}@media (min-width:992px){
+	.navbar-expand-lg .dropdown-menu .dropdown-menu{
+	border:1px solid rgba(0,0,0,.15);
+	position:absolute;
+	left:100%;
+	top:-7px}.navbar-expand-lg .dropdown-menu .submenu-left{
+	right:100%;
+	left:auto}
+}
+/* = Bric adjustment margins
+-------------------------------------------------------------- */
+
+.mg-md{
+	margin-top:10px;
+	margin-bottom:20px;
+}
+
+/* = Buttons
+-------------------------------------------------------------- */
+
+.btn-d,.btn-d:hover,.btn-d:focus{
+	color:#FFF;
+	background:rgba(0,0,0,.3);
+}
+
+/* Prevent ugly blue glow on chrome and safari */
+button{
+	outline: none!important;
+}
+
+.btn-rd{
+	border-radius: 40px;
+}
+.btn-glossy{
+	border:1px solid rgba(0,0,0,.09);
+	border-bottom-color:rgba(0,0,0,.2);
+	text-shadow:0 1px 0 rgba(0,0,1,.2);
+	box-shadow: 0 1px 3px rgba(0,0,1,.35), inset 0 1px 0 0 rgba(255,255,255,.4), inset 0 1px 0 2px rgba(255,255,255,.08);
+	background-image: -moz-linear-gradient(bottom, rgba(0,0,0,.07) 0%, rgba(255,255,255,.07) 100%);
+	 background-image: -o-linear-gradient(bottom, rgba(0,0,0,.07) 0%, rgba(255,255,255,.07) 100%);
+	background-image: -webkit-linear-gradient(bottom, rgba(0,0,0,.07) 0%, rgba(255,255,255,.07) 100%);
+	background-image: linear-gradient(bottom, rgba(0,0,0,.07) 0%, rgba(255,255,255,.07) 100%);
+}
+.icon-spacer{
+	margin-right:5px;
+}
+
+/* = Icons
+-------------------------------------------------------------- */
+.icon-md{
+	font-size:30px!important;
+}
+
+
+/* = Text & Icon Styles
+-------------------------------------------------------------- */
+.sm-shadow{
+	text-shadow:0 1px 2px rgba(0,0,0,.3);
+}
+.lg-shadow{
+	text-shadow:0 2px 5px rgba(0,0,0,.5);
+}
+
+
+/* = Cards
+-------------------------------------------------------------- */
+.card-sq, .card-sq .card-header, .card-sq .card-footer{
+	border-radius:0;
+}
+.card-rd{
+	border-radius:30px;
+}
+.card-rd .card-header{
+	border-radius:29px 29px 0 0;
+}
+.card-rd .card-footer{
+	border-radius:0 0 29px 29px;
+}
+/* = Masonary
+-------------------------------------------------------------- */
+.card-columns .card {
+	margin-bottom: 0.75rem;
+}
+@media (min-width: 576px) {
+	.card-columns {
+	-webkit-column-count: 3;
+	-moz-column-count: 3;
+	column-count: 3;
+	-webkit-column-gap: 1.25rem;
+	-moz-column-gap: 1.25rem;
+	column-gap: 1.25rem;
+	orphans: 1;
+	widows: 1;
+}
+.card-columns .card {
+	display: inline-block;
+	width: 100%;
+}
+}
+
+
+
+
+/* ScrollToTop button */
+
+.scrollToTop{
+	width:36px;
+	height:36px;
+	padding:5px;
+	position:fixed;
+	bottom:20px;
+	right:20px;
+	opacity:0;
+	z-index:999;
+	transition: all .3s ease-in-out;
+	pointer-events:none;
+}
+.showScrollTop{
+	opacity: 1;
+	pointer-events:all;
+}
+.scroll-to-top-btn-icon{
+	fill: none;
+	stroke: #fff;
+	stroke-width: 2px;
+	fill-rule: evenodd;
+	stroke-linecap:round;
+}
+/* = Lightbox
+-------------------------------------------------------------- */
+
+a[data-lightbox]{
+	position: relative;
+	display: block;
+	text-align: center;
+}
+a[data-lightbox]:hover::before{
+	content:"+";
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial;
+	font-size:32px;
+	line-height: 42px;
+	width:50px;
+	height:50px;
+	margin-left:-25px;
+	border-radius: 50%;
+	background:rgba(0,0,0,.5);
+	color:#FFF;
+	font-weight:100;
+	z-index: 1;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateY(-50%);
+	-webkit-transform: translateY(-50%);
+}
+a[data-lightbox]:hover img{
+	opacity: 0.6;
+	-webkit-animation-fill-mode: none;
+	animation-fill-mode:none;
+}
+.lightbox-caption{
+	padding: 20px;
+	color: #FFF;
+	background: rgba(0,0,0,.5);
+	position: absolute;
+	left: 16px;
+	right: 16px;
+	bottom: 0px;
+}
+.close-lightbox:hover,.next-lightbox:hover, .prev-lightbox:hover{
+	background:rgba(0,0,0,.5);
+}
+.next-lightbox, .prev-lightbox,.close-lightbox{
+	position: absolute;
+	padding:6px;
+	background:rgba(0,0,0,.3);
+	line-height:0;
+	transition: background .2s ease-in-out;
+	border-radius:.25rem;
+	border:none;
+	z-index:20;
+}
+.next-lightbox, .prev-lightbox{
+	top:45%;
+}
+.close-lightbox{
+	top:20px;
+	right:20px;
+}
+.next-lightbox{
+	right:25px;
+}
+.prev-lightbox{
+	left:25px;
+}
+.lightbox-prev-icon,.lightbox-next-icon,.lightbox-close-icon{
+	fill:none;
+	stroke: #fff;
+	stroke-width: 3px;
+	fill-rule: evenodd;
+	stroke-linecap:round;
+}
+.lightbox-close-svg{
+	pointer-events:none;
+}
+
+/* Framless */
+.frameless-lb{
+	border-radius: 0;
+	border:none;
+}
+.frameless-lb .modal-body{
+	padding:0;
+}
+.frameless-lb .lightbox-caption{
+	left:0;
+	right:0;
+	bottom:-16px;
+}
+
+/* = Custom Styling
+-------------------------------------------------------------- */
+
+h1,h2,h3,h4,h5,h6,p,label,.btn,a{
+	font-family:"Helvetica";
+}
+.container{
+	max-width:1140px;
+}
+.bento-box{
+	background-color:var(--swatch-var-3849);
+	width:100%;
+	position:relative;
+	padding:40px 40px 40px 40px;
+	border-radius:30px 30px 30px 30px;
+}
+.mini-heading{
+	font-size:20px;
+	font-weight:600;
+	text-transform:uppercase;
+}
+.box-info{
+	font-size:22px;
+}
+.section-heading{
+	font-size:40px;
+	font-weight:600;
+}
+.avatar{
+	width:150px;
+	border-radius:100px 100px 100px 100px;
+}
+.primary-gradient{
+	background:linear-gradient(335deg, var(--swatch-var-3726)  0%, var(--swatch-var-5341) 100%);
+}
+.brand{
+	font-weight:600;
+}
+.primary-text{
+	background-clip:text!important;
+	-webkit-background-clip:text!important;
+	background:linear-gradient(90deg, var(--swatch-var-5341) 0%, var(--swatch-var-3726) 100%);
+	color:transparent!important;
+	display:inline-block;
+}
+.box-heading{
+	font-size:36px;
+	font-weight:600;
+}
+.arrow-btn{
+	width:40px;
+	position:absolute;
+	right:20px;
+	bottom:20px;
+	height:40px;
+	opacity:0.5;
+}
+.orange-gradient{
+	background:linear-gradient(168deg, #FA7A01 0%, #BA2E0A 100%);
+}
+.md-box-img{
+	max-width:100px;
+}
+.blue-gradient{
+	background:linear-gradient(309deg, #0CADF4 0%, #1970EC 100%);
+}
+.sm-box-img{
+	max-width:60px;
+}
+.alt-bottom-padding{
+	padding-bottom:25px;
+}
+.sm-box-heading{
+	font-size:18px;
+}
+.md-box-heading{
+	font-weight:600;
+}
+.sm-arrow{
+	max-width:30px;
+	bottom:15px;
+	right:20px;
+}
+.box-bg-1{
+	background-image:url("img/graphic-1.jpg");
+	background-image: -webkit-image-set(url("img/graphic-1.webp") 1x,
+url("img/graphic-1.webp") 2x);background-image: image-set(url("img/graphic-1.jpg") 1x,
+url("img/graphic-1.jpg") 2x,url("img/graphic-1.webp") 1x,
+url("img/graphic-1.webp") 2x);
+}
+.box-bg-3{
+	background-image:url("img/graphic-4.jpg");
+	background-image: -webkit-image-set(url("img/graphic-4.webp") 1x,
+url("img/graphic-4.webp") 2x);background-image: image-set(url("img/graphic-4.jpg") 1x,
+url("img/graphic-4.jpg") 2x,url("img/graphic-4.webp") 1x,
+url("img/graphic-4.webp") 2x);
+}
+.bg-img-box{
+	height:500px;
+	background-size:cover;
+}
+.box-bg-4{
+	background-image:url("img/graphic-3.jpg");
+	background-image: -webkit-image-set(url("img/graphic-3.webp") 1x,
+url("img/graphic-3.webp") 2x);background-image: image-set(url("img/graphic-3.jpg") 1x,
+url("img/graphic-3.jpg") 2x,url("img/graphic-3.webp") 1x,
+url("img/graphic-3.webp") 2x);
+}
+.box-bg-2{
+	background-image:url("img/graphic-2.jpg");
+	background-image: -webkit-image-set(url("img/graphic-2.webp") 1x,
+url("img/graphic-2.webp") 2x);background-image: image-set(url("img/graphic-2.jpg") 1x,
+url("img/graphic-2.jpg") 2x,url("img/graphic-2.webp") 1x,
+url("img/graphic-2.webp") 2x);
+}
+.gradient-heading{
+	background:linear-gradient(269deg, rgba(255,255,255,0.32) 0%, #FFFFFF 100%);
+	background-clip:text!important;
+	-webkit-background-clip:text!important;
+	color:transparent!important;
+	display:inline-block;
+}
+.token-link{
+	font-weight:400;
+	text-decoration:none;
+	font-size:18px;
+	background-color:rgba(0,0,0,0.03);
+	color:var(--swatch-var-2190)!important;
+	background-size:auto auto;
+	display:inline-block;
+	margin-right:10px;
+	padding:5px 20px 5px 20px;
+	border-radius:30px 30px 30px 30px;
+}
+.arrow-btn:hover{
+	opacity:1;
+}
+.token-link:hover{
+	background-color:var(--swatch-var-3726);
+	color:var(--swatch-var-3849)!important;
+	background:linear-gradient(314deg, var(--swatch-var-3726)  0%, var(--swatch-var-5341) 100%);
+}
+.navbar-nav li a{
+	font-size:18px;
+	font-weight:600;
+}
+.box-btn{
+	padding-left:30px;
+	padding-right:30px;
+	font-weight:600;
+	border-width:0px 0px 0px 0px;
+}
+.overlay-heading{
+	position:absolute;
+	z-index:100;
+	left:60px;
+	top:60px;
+}
+.primary-btn{
+	background:linear-gradient(335deg, var(--swatch-var-3726) 0%, var(--swatch-var-5341) 100%);
+}
+.primary-btn:hover{
+	background:linear-gradient(128deg, var(--swatch-var-3726)  0%, var(--swatch-var-5341) 100%);
+	color:var(--swatch-var-3849)!important;
+}
+.active-token{
+	background:linear-gradient(314deg, var(--swatch-var-3726)  0%, var(--swatch-var-5341) 100%);
+	color:var(--swatch-var-3849)!important;
+}
+.scrollToTop{
+	background:linear-gradient(335deg, var(--swatch-var-3726) 0%, var(--swatch-var-5341) 100%);
+	border-radius:8px 8px 8px 8px;
+	border-width:0px 0px 0px 0px;
+}
+.scrollToTop:hover{
+	background:linear-gradient(0deg, var(--swatch-var-3726) 0%, var(--swatch-var-5341) 100%);
+}
+.sticky.sticky-nav{
+	backdrop-filter:blur(30px);
+	-webkit-backdrop-filter:blur(30px);
+	background-color:rgba(255,255,255,0.30);
+}
+.html-widget-style{
+	width:100%;
+}
+.navbar-logo{
+	text-transform:none;
+	text-decoration:none;
+	font-size:20px;
+}
+.h3-style{
+	font-size:60px;
+	font-family:"Lobster";
+}
+.h2-style{
+	font-size:23px;
+}
+.h2-feature-title-style{
+	font-family:"Lobster Two";
+}
+.blocs-card-width{
+	width:25%;
+}
+.h3-cat-pictures-style{
+	font-size:25px;
+	padding-bottom:1px;
+	font-family:"Lobster";
+}
+.card-bloc-1-style{
+	width:100%;
+}
+
+/* = Colour
+-------------------------------------------------------------- */
+
+/* Swatch Variables */
+:root{
+	
+	--swatch-var-3849:rgba(255,255,255,1.00);
+	
+	--swatch-var-970:rgba(245,245,247,1.00);
+	
+	--swatch-var-2190:rgba(0,0,0,1.00);
+	
+	--swatch-var-6153:rgba(0,0,0,0.10);
+	
+	--swatch-var-3726:rgba(11,158,183,1.00);
+	
+	--swatch-var-5341:rgba(62,215,189,1.00);
+	
+	--swatch-var-802:#C4AA8D;
+	
+	--swatch-var-1722:#6D5E4D;
+	
+	--swatch-var-4593:#B2EDA8;
+	
+}
+
+
+/* Background colour styles */
+
+.bgc-802{
+	background-color:var(--swatch-var-802);
+}
+.bgc-2190{
+	background-color:var(--swatch-var-2190);
+}
+.bgc-6153{
+	background-color:var(--swatch-var-6153);
+}
+
+/* Text colour styles */
+
+.tc-3849{
+	color:var(--swatch-var-3849)!important;
+}
+.tc-2190{
+	color:var(--swatch-var-2190)!important;
+}
+
+/* Button colour styles */
+
+.btn-c-3849{
+	background:var(--swatch-var-3849);
+	color:rgba(0,0,0,.5)!important;
+}
+.btn-c-3849:hover{
+	background:#CCCCCC!important;
+	color:rgba(0,0,0,.5)!important;
+}
+.btn-c-4593{
+	background:var(--swatch-var-4593);
+	color:rgba(0,0,0,.5)!important;
+}
+.btn-c-4593:hover{
+	background:#7FBA75!important;
+	color:rgba(0,0,0,.5)!important;
+}
+.btn-c-802{
+	background:var(--swatch-var-802);
+	color:rgba(0,0,0,.5)!important;
+}
+.btn-c-802:hover{
+	background:#91775A!important;
+	color:rgba(0,0,0,.5)!important;
+}
+
+/* Icon colour styles */
+
+.icon-1722{
+	color:var(--swatch-var-1722)!important;
+	border-color:var(--swatch-var-1722)!important;
+}
+
+/* Bloc image backgrounds */
+
+.bg-johan-mouchet-Z95viY3WaZs-unsplash-281-29{
+	background-image:url("img/johan-mouchet-Z95viY3WaZs-unsplash%281%29.jpg");
+	background-image: -webkit-image-set(url("img/johan-mouchet-Z95viY3WaZs-unsplash%281%29.webp") 1x,
+url("img/johan-mouchet-Z95viY3WaZs-unsplash%281%29.webp") 2x);background-image: image-set(url("img/johan-mouchet-Z95viY3WaZs-unsplash%281%29.jpg") 1x,
+url("img/johan-mouchet-Z95viY3WaZs-unsplash%281%29.jpg") 2x,url("img/johan-mouchet-Z95viY3WaZs-unsplash%281%29.webp") 1x,
+url("img/johan-mouchet-Z95viY3WaZs-unsplash%281%29.webp") 2x);
+}
+.bg-andy-wang-MO-Qr7a8bnc-unsplash{
+	background-image:url("img/andy-wang-MO_Qr7a8bnc-unsplash.jpg");
+	background-image: -webkit-image-set(url("img/andy-wang-MO_Qr7a8bnc-unsplash.webp") 1x,
+url("img/andy-wang-MO_Qr7a8bnc-unsplash.webp") 2x);background-image: image-set(url("img/andy-wang-MO_Qr7a8bnc-unsplash.jpg") 1x,
+url("img/andy-wang-MO_Qr7a8bnc-unsplash.jpg") 2x,url("img/andy-wang-MO_Qr7a8bnc-unsplash.webp") 1x,
+url("img/andy-wang-MO_Qr7a8bnc-unsplash.webp") 2x);
+}
+
+
+/* = Additional CSS
+-------------------------------------------------------------- */
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <!-- BULMA CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    
+    <!-- PYSCRIPT -->
+    <script defer="" src="https://pyscript.net/alpha/pyscript.js"></script>
+    <py-env></py-env>
+
+    <style>
+        .tooltip.is-tooltip-multiline::before { white-space:pre-line }
+    </style>
+
+  
+  
+
+    <!-- UI -->
+    <div id="div1" class="container bloc-no-padding-lg">
+        <div class="section">
+            <div class="card has-background-black-ter">
+                <div class="card-image">
+                    <figure class="image">
+                        <img src="https://assets.zyrosite.com/mePOBQxQBzSENNEa/momo-YbNb18O1KMfrro95.jpg" alt="Momo the cat" class="">
+                    </figure>
+                </div>
+                <div class="card-content">
+                    <p class="title has-text-warning">
+                        Momo Bill Catculator
+                    </p>
+                    <p class="subtitle has-text-white">
+                        Let Momo split the bill for you
+                    </p>
+                </div>
+            </div>
+            <br>
+
+            <div class="box">
+                <progress id="progress" class="progress is-info" value="0" max="100"></progress>
+
+                <div id="div_total" class="field">
+                    <label class="label">Enter bill subtotal (amount before tax)</label>
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input id="i_total" class="input" type="text" placeholder="e.g., 100">
+                        </div>
+                        <div class="control">
+                            <button id="submit_total" class="button is-info" type="submit" pys-onclick="calc_tips">Apply</button>
+                        </div>
+                    </div>
+                    <p id="field_tips" class="help" style="white-space: pre-line"></p>
+                </div>
+
+                <div id="div_tip" style="display:none;" class="field">
+                    <label class="label">Enter tip</label>
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input id="i_tip" class="input" type="text" placeholder="e.g., 10">
+                        </div>
+                        <div class="control">
+                            <button id="submit_tip" class="button is-info" type="submit" pys-onclick="calc_total_w_tip">Apply</button>
+                        </div>
+                    </div>
+                    <p id="field_total_w_tip" class="help"></p>
+                </div>
+
+                <div id="div_discount" style="display:none;" class="field">
+                    <label class="label">Enter discount</label>
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input id="i_discount" class="input" type="text" value="0">
+                        </div>
+                        <div class="control">
+                            <button id="submit_discount" class="button is-info" type="submit" pys-onclick="calc_total_w_tip_discount">Apply</button>
+                        </div>
+                    </div>
+                    <p id="field_total_w_tip_discount" class="help"></p>
+                </div>
+
+                <div id="div_tax" style="display:none;" class="field">
+                    <label class="label">Enter tax in percentage</label>
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input id="i_tax" class="input" type="text" value="8.25">
+                        </div>
+                        <div class="control">
+                            <button id="submit_tax" class="button is-info" type="submit" pys-onclick="calc_total_w_tip_discount_tax">Apply</button>
+                        </div>
+                    </div>
+                    <p id="field_total_w_tip_discount_tax" class="help"></p>
+                </div>
+
+                <div id="div_cost" style="display:none;" class="field">
+                    <label class="label">Enter your cost before tax to see how much you need to pay back the person who paid the bill</label>
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input id="i_cost" class="input is-primary" type="text" placeholder="e.g., 5">
+                            <label id="i_cost_label" class="tag">+, -, *, / allowed</label>
+                        </div>
+                        <div class="control">
+                            <button id="submit_cost" class="button is-primary" type="submit" pys-onclick="calc_cost">Catculate</button>
+                        </div>
+                    </div>
+                    <article class="message">
+                        <div id="individual_cost" class="message-body" style="white-space: pre-line"></div>
+                    </article>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+<py-script>
+total = 0
+tip = 0
+discount = 0
+tax = 0
+cost = 0
+
+def calc_tips(*args, **kwargs):
+    global total
+    total = document.getElementById('i_total')
+    total = float(total.value)
+
+    tip_15_perc = round(total * 0.15, 2)
+    tip_17_perc = round(total * 0.17, 2)
+    tip_20_perc = round(total * 0.20, 2)
+
+    log_tips = document.getElementById('field_tips')
+    log_tips.innerHTML = '15% tip = $' + '{0:.2f}'.format(tip_15_perc) + '\n 17% tip = $' + '{0:.2f}'.format(tip_17_perc) + '\n 20% tip = $' + '{0:.2f}'.format(tip_20_perc)
+
+    document.getElementById('div_tip').style.display = 'block'
+    document.getElementById('progress').value = 20
+
+def calc_total_w_tip(*args, **kwargs):
+    global total, total_w_tip, tip
+    tip = document.getElementById('i_tip')
+    tip = float(tip.value)
+
+    tip_perc = round(tip / total * 100, 2)
+    total_w_tip = round(total + tip, 2)
+
+    log_total_w_tip = document.getElementById('field_total_w_tip')
+    log_total_w_tip.innerHTML = 'Total + tip = $' + '{0:.2f}'.format(total_w_tip) + ' (' + '{0:.1f}'.format(tip_perc) + '% tip)'
+
+    document.getElementById('div_discount').style.display = 'block'
+    document.getElementById('progress').value = 40
+
+
+def calc_total_w_tip_discount(*args, **kwargs):
+    global total, total_w_tip, tip, total_w_tip, discount
+    discount = document.getElementById('i_discount')
+    discount = float(discount.value)
+
+    total_w_tip_discount = round(total_w_tip - discount, 2)
+
+    log_total_w_tip_discount = document.getElementById('field_total_w_tip_discount')
+    log_total_w_tip_discount.innerHTML = 'Total + tip - discount = $' + '{0:.2f}'.format(total_w_tip_discount)
+
+    document.getElementById('div_tax').style.display = 'block'
+    document.getElementById('progress').value = 60
+
+def calc_total_w_tip_discount_tax(*args, **kwargs):
+    global total, total_w_tip, tip, total_w_tip, discount, tax
+    tax = document.getElementById('i_tax')
+    tax = float(tax.value)
+
+    total_w_tip_discount_tax = round((total - discount) * (tax / 100 + 1) + tip, 2)
+
+    log_total_w_tip_discount_tax = document.getElementById('field_total_w_tip_discount_tax')
+    log_total_w_tip_discount_tax.innerHTML = 'Total + tip - discount + tax = $' + '{0:.2f}'.format(total_w_tip_discount_tax)
+
+    document.getElementById('div_cost').style.display = 'block'
+    document.getElementById('progress').value = 80
+
+def calc_cost(*args, **kwargs):
+    global total, total_w_tip, tip, total_w_tip, discount, tax, cost
+    cost = document.getElementById('i_cost')
+    cost = float(safe_math_eval(cost.value))
+
+    total_w_discount_tax = (total - discount) * (tax / 100 + 1)
+    cost_w_discount_tax = cost * (total - discount) / total * (tax / 100 + 1)
+    perc_of_tip = round(cost_w_discount_tax / total_w_discount_tax * 100, 2)
+    pay = round(cost_w_discount_tax + cost_w_discount_tax / total_w_discount_tax * tip, 2)
+
+    log_individual_cost = document.getElementById('individual_cost')
+    log_individual_cost.innerHTML += '$' + '{0:.2f}'.format(cost) + ' ➡️ $' + '{0:.2f}'.format(pay) + ' (includes ' + '{0:.1f}'.format(perc_of_tip) + '% of tip)\n'
+
+    document.getElementById('progress').value = 100
+    document.getElementById('progress').className = "progress is-success"
+
+def safe_math_eval(string):
+    allowed_chars = "0123456789+-*(). /"
+    for char in string:
+        if char not in allowed_chars:
+            raise Exception("Unsafe eval")
+
+    return eval(string, {"__builtins__": None}, {})
+
+</py-script>
+
+
+/* = Bloc Padding Multi Breakpoint
+-------------------------------------------------------------- */
+
+@media (min-width: 576px) {
+    .bloc-xxl-sm{padding:200px 20px;}
+    .bloc-xl-sm{padding:150px 20px;}
+    .bloc-lg-sm{padding:100px 20px;}
+    .bloc-md-sm{padding:50px 20px;}
+    .bloc-sm-sm{padding:20px;}
+    .bloc-no-padding-sm{padding:0 20px;}
+}
+@media (min-width: 768px) {
+    .bloc-xxl-md{padding:200px 20px;}
+    .bloc-xl-md{padding:150px 20px;}
+    .bloc-lg-md{padding:100px 20px;}
+    .bloc-md-md{padding:50px 20px;}
+    .bloc-sm-md{padding:20px 20px;}
+    .bloc-no-padding-md{padding:0 20px;}
+}
+@media (min-width: 992px) {
+    .bloc-xxl-lg{padding:200px 20px;}
+    .bloc-xl-lg{padding:150px 20px;}
+    .bloc-lg-lg{padding:100px 20px;}
+    .bloc-md-lg{padding:50px 20px;}
+    .bloc-sm-lg{padding:20px;}
+    .bloc-no-padding-lg{padding:0 20px;}
+}
+
+
+/* = Mobile adjustments 
+-------------------------------------------------------------- */
+@media (max-width: 1024px)
+{
+    .bloc.full-width-bloc, .bloc-tile-2.full-width-bloc .container, .bloc-tile-3.full-width-bloc .container, .bloc-tile-4.full-width-bloc .container{
+        padding-left: 0; 
+        padding-right: 0;  
+    }
+}
+@media (max-width: 991px)
+{
+    .container{width:100%;}
+    .bloc{padding-left: constant(safe-area-inset-left);padding-right: constant(safe-area-inset-right);} /* iPhone X Notch Support*/
+    .bloc-group, .bloc-group .bloc{display:block;width:100%;}
+}
+@media (max-width: 767px)
+{
+    .bloc-tile-2 .container, .bloc-tile-3 .container, .bloc-tile-4 .container{
+        padding-left:0;padding-right:0;
+    }
+    .btn-dwn{
+       display:none; 
+    }
+    .voffset{
+        margin-top:5px;
+    }
+    .voffset-md{
+        margin-top:20px;
+    }
+    .voffset-lg{
+        margin-top:30px;
+    }
+    form{
+        padding:5px;
+    }
+    .close-lightbox{
+        display:inline-block;
+    }
+    .blocsapp-device-iphone5{
+	   background-size: 216px 425px;
+	   padding-top:60px;
+	   width:216px;
+	   height:425px;
+    }
+    .blocsapp-device-iphone5 img{
+	   width: 180px;
+	   height: 320px;
+    }
+}
+
+@media (max-width: 991px){
+	.avatar{
+		width:120px;
+	}
+	.token-link{
+		margin-bottom:10px;
+	}
+	.bg-img-box{
+		height:350px;
+	}
+	.bento-box{
+		padding:30px 30px 30px 30px;
+	}
+	.blocs-card-width{
+		width:50%;
+	}
+	
+}
+
+@media (max-width: 767px){
+	.token-link{
+		font-size:16px;
+	}
+	.bento-box{
+		padding:30px 30px 30px 30px;
+	}
+	.box-heading{
+		font-size:30px;
+	}
+	.box-info{
+		font-size:20px;
+	}
+	.bg-img-box{
+		height:250px;
+	}
+	.overlay-heading{
+		top:50px;
+		left:50px;
+	}
+	.blocs-card-width{
+		width:50%;
+	}
+	
+}
+
+@media (max-width: 575px){
+	.token-link{
+		font-size:14px;
+		padding-right:15px;
+		padding-left:15px;
+	}
+	.bento-box{
+		padding:20px 20px 20px 20px;
+	}
+	.box-info{
+		font-size:18px;
+	}
+	.section-heading{
+		font-size:30px;
+	}
+	.bg-img-box{
+		height:300px;
+	}
+	.sm-arrow{
+		bottom:10px;
+		right:15px;
+	}
+	.overlay-heading{
+		left:30px;
+		top:30px;
+	}
+	.fill-mob-btn{
+		width:100%;
+	}
+	.primary-btn{
+	}
+	.navbar-logo{
+		font-size:18px;
+	}
+	.footer-link{
+		text-align:center;
+	}
+	.blocs-card-width{
+		width:100%;
+	}
+	
+}
+
