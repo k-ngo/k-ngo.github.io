@@ -16,9 +16,6 @@
 	<link href='https://fonts.googleapis.com/css?family=Lobster&display=swap&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:700,40&display=swap&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <title>Bill</title>
-
-
-    
 </head>
 <body data-clean-url="true">
 
@@ -165,8 +162,9 @@
     </div>
 
 <py-script>
-from pyscript import Element
+from js import document
 
+# Global variables to store the state of the calculation
 total = 0
 tip = 0
 discount = 0
@@ -175,89 +173,120 @@ cost = 0
 total_w_tip = 0
 
 def safe_math_eval(string):
+    """Safely evaluate a math expression from user input."""
     allowed_chars = "0123456789+-*(). /"
-    for char in string:
-        if char not in allowed_chars:
-            raise Exception("Unsafe eval")
+    if not all(char in allowed_chars for char in string):
+        raise ValueError("Invalid characters in expression")
+    # Using a controlled eval is okay for this simple use case.
     return eval(string, {"__builtins__": None}, {})
 
 def calc_tips(*args, **kwargs):
+    """Calculate and display suggested tip amounts."""
     global total
-    total_input = Element('i_total')
-    total = float(total_input.value)
+    total_input = document.getElementById('i_total')
+    try:
+        total = float(total_input.value)
+    except (ValueError, TypeError):
+        document.getElementById('field_tips').innerText = "Please enter a valid number for the subtotal."
+        return
 
-    tip_15_perc = round(total * 0.15, 2)
-    tip_17_perc = round(total * 0.17, 2)
-    tip_20_perc = round(total * 0.20, 2)
+    tip_15_perc = total * 0.15
+    tip_17_perc = total * 0.17
+    tip_20_perc = total * 0.20
 
-    log_tips = Element('field_tips')
-    log_tips.write(f'15% tip = ${tip_15_perc:.2f}\n17% tip = ${tip_17_perc:.2f}\n20% tip = ${tip_20_perc:.2f}')
+    log_tips = document.getElementById('field_tips')
+    log_tips.innerText = f'15% tip = ${tip_15_perc:.2f}\n17% tip = ${tip_17_perc:.2f}\n20% tip = ${tip_20_perc:.2f}'
 
-    Element('div_tip').element.style.display = 'block'
-    Element('progress').element.value = 20
+    document.getElementById('div_tip').style.display = 'block'
+    document.getElementById('progress').value = 20
 
 def calc_total_w_tip(*args, **kwargs):
+    """Calculate total with tip."""
     global total, total_w_tip, tip
-    tip_input = Element('i_tip')
-    tip = float(tip_input.value)
+    tip_input = document.getElementById('i_tip')
+    try:
+        tip = float(tip_input.value)
+    except (ValueError, TypeError):
+        document.getElementById('field_total_w_tip').innerText = "Please enter a valid tip amount."
+        return
+    
+    if total > 0:
+        tip_perc = (tip / total) * 100
+    else:
+        tip_perc = 0
+        
+    total_w_tip = total + tip
+    
+    log_total_w_tip = document.getElementById('field_total_w_tip')
+    log_total_w_tip.innerText = f'Total + tip = ${total_w_tip:.2f} ({tip_perc:.1f}% tip)'
 
-    tip_perc = round(tip / total * 100, 2)
-    total_w_tip = round(total + tip, 2)
-
-    log_total_w_tip = Element('field_total_w_tip')
-    log_total_w_tip.write(f'Total + tip = ${total_w_tip:.2f} ({tip_perc:.1f}% tip)')
-
-    Element('div_discount').element.style.display = 'block'
-    Element('progress').element.value = 40
+    document.getElementById('div_discount').style.display = 'block'
+    document.getElementById('progress').value = 40
 
 def calc_total_w_tip_discount(*args, **kwargs):
+    """Calculate total with tip and discount."""
     global total_w_tip, discount
-    discount_input = Element('i_discount')
-    discount = float(discount_input.value)
+    discount_input = document.getElementById('i_discount')
+    try:
+        discount = float(discount_input.value)
+    except (ValueError, TypeError):
+        document.getElementById('field_total_w_tip_discount').innerText = "Please enter a valid discount."
+        return
 
-    total_w_tip_discount = round(total_w_tip - discount, 2)
+    total_w_tip_discount = total_w_tip - discount
+    log_total_w_tip_discount = document.getElementById('field_total_w_tip_discount')
+    log_total_w_tip_discount.innerText = f'Total + tip - discount = ${total_w_tip_discount:.2f}'
 
-    log_total_w_tip_discount = Element('field_total_w_tip_discount')
-    log_total_w_tip_discount.write(f'Total + tip - discount = ${total_w_tip_discount:.2f}')
-
-    Element('div_tax').element.style.display = 'block'
-    Element('progress').element.value = 60
+    document.getElementById('div_tax').style.display = 'block'
+    document.getElementById('progress').value = 60
 
 def calc_total_w_tip_discount_tax(*args, **kwargs):
+    """Calculate the final bill amount including tax."""
     global total, tip, discount, tax
-    tax_input = Element('i_tax')
-    tax = float(tax_input.value)
+    tax_input = document.getElementById('i_tax')
+    try:
+        tax = float(tax_input.value)
+    except (ValueError, TypeError):
+        document.getElementById('field_total_w_tip_discount_tax').innerText = "Please enter a valid tax percentage."
+        return
 
-    total_w_tip_discount_tax = round((total - discount) * (tax / 100 + 1) + tip, 2)
+    total_w_tip_discount_tax = (total - discount) * (tax / 100 + 1) + tip
 
-    log_total_w_tip_discount_tax = Element('field_total_w_tip_discount_tax')
-    log_total_w_tip_discount_tax.write(f'Total + tip - discount + tax = ${total_w_tip_discount_tax:.2f}')
+    log_total_w_tip_discount_tax = document.getElementById('field_total_w_tip_discount_tax')
+    log_total_w_tip_discount_tax.innerText = f'Grand Total = ${total_w_tip_discount_tax:.2f}'
 
-    Element('div_cost').element.style.display = 'block'
-    Element('progress').element.value = 80
+    document.getElementById('div_cost').style.display = 'block'
+    document.getElementById('progress').value = 80
 
 def calc_cost(*args, **kwargs):
-    global total, tip, discount, tax, cost
-    cost_input = Element('i_cost')
-    cost = float(safe_math_eval(cost_input.value))
+    """Calculate the individual's share of the bill."""
+    global total, tip, discount, tax
+    cost_input = document.getElementById('i_cost')
+    try:
+        cost = float(safe_math_eval(cost_input.value))
+    except Exception:
+        document.getElementById('individual_cost').innerText = "Please enter a valid cost or expression."
+        return
 
-    total_w_discount_tax = (total - discount) * (tax / 100 + 1)
-    cost_w_discount_tax = cost * (total - discount) / total * (tax / 100 + 1)
+    subtotal_after_discount = total - discount
     
-    # Avoid division by zero if total_w_discount_tax is zero
-    perc_of_tip = 0
-    if total_w_discount_tax != 0:
-        perc_of_tip = round(cost_w_discount_tax / total_w_discount_tax * 100, 2)
-    
-    pay = round(cost_w_discount_tax + (cost_w_discount_tax / total_w_discount_tax * tip if total_w_discount_tax != 0 else 0), 2)
+    # Avoid division by zero errors
+    if total == 0 or subtotal_after_discount <= 0:
+        pay = 0
+        perc_of_tip = 0
+    else:
+        # Calculate share of the subtotal, tax, and tip
+        cost_ratio = cost / total
+        pay = (cost - (discount * cost_ratio)) * (1 + tax / 100) + (tip * cost_ratio)
+        perc_of_tip = cost_ratio * 100
 
-    log_individual_cost = Element('individual_cost')
-    log_individual_cost.element.innerHTML += f'${cost:.2f} ➡️ ${pay:.2f} (includes {perc_of_tip:.1f}% of tip)\n'
+    log_individual_cost = document.getElementById('individual_cost')
+    # Use innerHTML to append and keep previous entries
+    log_individual_cost.innerHTML += f'Your share for an item of ${cost:.2f} is <b>${pay:.2f}</b> (pays for {perc_of_tip:.1f}% of the tip)<br>'
 
-    progress_bar = Element('progress')
-    progress_bar.element.value = 100
-    progress_bar.element.className = "progress is-success"
-
+    progress_bar = document.getElementById('progress')
+    progress_bar.value = 100
+    progress_bar.className = "progress is-success"
 </py-script>
 					
 				</div>
