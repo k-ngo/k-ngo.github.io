@@ -19,22 +19,12 @@
 
 
     
-<!-- Analytics -->
- 
-<!-- Analytics END -->
-    
 </head>
 <body data-clean-url="true">
 
-<!-- Preloader -->
 <div id="page-loading-blocs-notifaction" class="page-preloader"></div>
-<!-- Preloader END -->
-
-
-<!-- Main container -->
 <div class="page-container">
     
-<!-- bloc-2 -->
 <div class="bloc bloc-fill-screen bg-johan-mouchet-Z95viY3WaZs-unsplash-281-29 d-bloc bloc-bg-texture texture-darken" id="bloc-2">
 	<div class="container fill-bloc-top-edge">
 		<div class="row">
@@ -79,10 +69,7 @@
 		</div>
 	</div>
 </div>
-<!-- bloc-2 END -->
-
-<!-- bloc-2 -->
-<div class="bloc l-bloc full-width-bloc" id="bloc-2">
+<div class="bloc l-bloc full-width-bloc" id="bloc-2-1">
 	<div class="container bloc-no-padding">
 		<div class="row">
 			<div class="col-12 bgc-2190 text-center text-lg-start">
@@ -90,10 +77,8 @@
 					<meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <!-- BULMA CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     
-    <!-- PYSCRIPT -->
     <link rel="stylesheet" href="https://pyscript.net/releases/2025.7.2/core.css">
     <script type="module" src="https://pyscript.net/releases/2025.7.2/core.js"></script>
 
@@ -101,7 +86,6 @@
         .tooltip.is-tooltip-multiline::before { white-space:pre-line }
     </style>
 
-    <!-- UI -->
     <div id="div1" class="container bloc-no-padding-lg">
         <div class="section">
             <div class="box">
@@ -114,7 +98,7 @@
                             <input id="i_total" class="input" type="text" placeholder="e.g., 100">
                         </div>
                         <div class="control">
-                            <button id="submit_total" class="button is-info" type="submit" pys-onclick="calc_tips">Apply</button>
+                            <button id="submit_total" class="button is-info" type="submit" py-click="calc_tips">Apply</button>
                         </div>
                     </div>
                     <p id="field_tips" class="help" style="white-space: pre-line"></p>
@@ -127,7 +111,7 @@
                             <input id="i_tip" class="input" type="text" placeholder="e.g., 10">
                         </div>
                         <div class="control">
-                            <button id="submit_tip" class="button is-info" type="submit" pys-onclick="calc_total_w_tip">Apply</button>
+                            <button id="submit_tip" class="button is-info" type="submit" py-click="calc_total_w_tip">Apply</button>
                         </div>
                     </div>
                     <p id="field_total_w_tip" class="help"></p>
@@ -140,7 +124,7 @@
                             <input id="i_discount" class="input" type="text" value="0">
                         </div>
                         <div class="control">
-                            <button id="submit_discount" class="button is-info" type="submit" pys-onclick="calc_total_w_tip_discount">Apply</button>
+                            <button id="submit_discount" class="button is-info" type="submit" py-click="calc_total_w_tip_discount">Apply</button>
                         </div>
                     </div>
                     <p id="field_total_w_tip_discount" class="help"></p>
@@ -153,7 +137,7 @@
                             <input id="i_tax" class="input" type="text" value="8.25">
                         </div>
                         <div class="control">
-                            <button id="submit_tax" class="button is-info" type="submit" pys-onclick="calc_total_w_tip_discount_tax">Apply</button>
+                            <button id="submit_tax" class="button is-info" type="submit" py-click="calc_total_w_tip_discount_tax">Apply</button>
                         </div>
                     </div>
                     <p id="field_total_w_tip_discount_tax" class="help"></p>
@@ -167,7 +151,7 @@
                             <label id="i_cost_label" class="tag">+, -, *, / allowed</label>
                         </div>
                         <div class="control">
-                            <button id="submit_cost" class="button is-primary" type="submit" pys-onclick="calc_cost">Catculate</button>
+                            <button id="submit_cost" class="button is-primary" type="submit" py-click="calc_cost">Catculate</button>
                         </div>
                     </div>
                     <article class="message">
@@ -181,91 +165,98 @@
     </div>
 
 <py-script>
+from pyscript import Element
+
 total = 0
 tip = 0
 discount = 0
 tax = 0
 cost = 0
-
-def calc_tips(*args, **kwargs):
-    global total
-    total = document.getElementById('i_total')
-    total = float(total.value)
-
-    tip_15_perc = round(total * 0.15, 2)
-    tip_17_perc = round(total * 0.17, 2)
-    tip_20_perc = round(total * 0.20, 2)
-
-    log_tips = document.getElementById('field_tips')
-    log_tips.innerHTML = '15% tip = $' + '{0:.2f}'.format(tip_15_perc) + '\n 17% tip = $' + '{0:.2f}'.format(tip_17_perc) + '\n 20% tip = $' + '{0:.2f}'.format(tip_20_perc)
-
-    document.getElementById('div_tip').style.display = 'block'
-    document.getElementById('progress').value = 20
-
-def calc_total_w_tip(*args, **kwargs):
-    global total, total_w_tip, tip
-    tip = document.getElementById('i_tip')
-    tip = float(tip.value)
-
-    tip_perc = round(tip / total * 100, 2)
-    total_w_tip = round(total + tip, 2)
-
-    log_total_w_tip = document.getElementById('field_total_w_tip')
-    log_total_w_tip.innerHTML = 'Total + tip = $' + '{0:.2f}'.format(total_w_tip) + ' (' + '{0:.1f}'.format(tip_perc) + '% tip)'
-
-    document.getElementById('div_discount').style.display = 'block'
-    document.getElementById('progress').value = 40
-
-
-def calc_total_w_tip_discount(*args, **kwargs):
-    global total, total_w_tip, tip, total_w_tip, discount
-    discount = document.getElementById('i_discount')
-    discount = float(discount.value)
-
-    total_w_tip_discount = round(total_w_tip - discount, 2)
-
-    log_total_w_tip_discount = document.getElementById('field_total_w_tip_discount')
-    log_total_w_tip_discount.innerHTML = 'Total + tip - discount = $' + '{0:.2f}'.format(total_w_tip_discount)
-
-    document.getElementById('div_tax').style.display = 'block'
-    document.getElementById('progress').value = 60
-
-def calc_total_w_tip_discount_tax(*args, **kwargs):
-    global total, total_w_tip, tip, total_w_tip, discount, tax
-    tax = document.getElementById('i_tax')
-    tax = float(tax.value)
-
-    total_w_tip_discount_tax = round((total - discount) * (tax / 100 + 1) + tip, 2)
-
-    log_total_w_tip_discount_tax = document.getElementById('field_total_w_tip_discount_tax')
-    log_total_w_tip_discount_tax.innerHTML = 'Total + tip - discount + tax = $' + '{0:.2f}'.format(total_w_tip_discount_tax)
-
-    document.getElementById('div_cost').style.display = 'block'
-    document.getElementById('progress').value = 80
-
-def calc_cost(*args, **kwargs):
-    global total, total_w_tip, tip, total_w_tip, discount, tax, cost
-    cost = document.getElementById('i_cost')
-    cost = float(safe_math_eval(cost.value))
-
-    total_w_discount_tax = (total - discount) * (tax / 100 + 1)
-    cost_w_discount_tax = cost * (total - discount) / total * (tax / 100 + 1)
-    perc_of_tip = round(cost_w_discount_tax / total_w_discount_tax * 100, 2)
-    pay = round(cost_w_discount_tax + cost_w_discount_tax / total_w_discount_tax * tip, 2)
-
-    log_individual_cost = document.getElementById('individual_cost')
-    log_individual_cost.innerHTML += '$' + '{0:.2f}'.format(cost) + ' ➡️ $' + '{0:.2f}'.format(pay) + ' (includes ' + '{0:.1f}'.format(perc_of_tip) + '% of tip)\n'
-
-    document.getElementById('progress').value = 100
-    document.getElementById('progress').className = "progress is-success"
+total_w_tip = 0
 
 def safe_math_eval(string):
     allowed_chars = "0123456789+-*(). /"
     for char in string:
         if char not in allowed_chars:
             raise Exception("Unsafe eval")
-
     return eval(string, {"__builtins__": None}, {})
+
+def calc_tips(*args, **kwargs):
+    global total
+    total_input = Element('i_total')
+    total = float(total_input.value)
+
+    tip_15_perc = round(total * 0.15, 2)
+    tip_17_perc = round(total * 0.17, 2)
+    tip_20_perc = round(total * 0.20, 2)
+
+    log_tips = Element('field_tips')
+    log_tips.write(f'15% tip = ${tip_15_perc:.2f}\n17% tip = ${tip_17_perc:.2f}\n20% tip = ${tip_20_perc:.2f}')
+
+    Element('div_tip').element.style.display = 'block'
+    Element('progress').element.value = 20
+
+def calc_total_w_tip(*args, **kwargs):
+    global total, total_w_tip, tip
+    tip_input = Element('i_tip')
+    tip = float(tip_input.value)
+
+    tip_perc = round(tip / total * 100, 2)
+    total_w_tip = round(total + tip, 2)
+
+    log_total_w_tip = Element('field_total_w_tip')
+    log_total_w_tip.write(f'Total + tip = ${total_w_tip:.2f} ({tip_perc:.1f}% tip)')
+
+    Element('div_discount').element.style.display = 'block'
+    Element('progress').element.value = 40
+
+def calc_total_w_tip_discount(*args, **kwargs):
+    global total_w_tip, discount
+    discount_input = Element('i_discount')
+    discount = float(discount_input.value)
+
+    total_w_tip_discount = round(total_w_tip - discount, 2)
+
+    log_total_w_tip_discount = Element('field_total_w_tip_discount')
+    log_total_w_tip_discount.write(f'Total + tip - discount = ${total_w_tip_discount:.2f}')
+
+    Element('div_tax').element.style.display = 'block'
+    Element('progress').element.value = 60
+
+def calc_total_w_tip_discount_tax(*args, **kwargs):
+    global total, tip, discount, tax
+    tax_input = Element('i_tax')
+    tax = float(tax_input.value)
+
+    total_w_tip_discount_tax = round((total - discount) * (tax / 100 + 1) + tip, 2)
+
+    log_total_w_tip_discount_tax = Element('field_total_w_tip_discount_tax')
+    log_total_w_tip_discount_tax.write(f'Total + tip - discount + tax = ${total_w_tip_discount_tax:.2f}')
+
+    Element('div_cost').element.style.display = 'block'
+    Element('progress').element.value = 80
+
+def calc_cost(*args, **kwargs):
+    global total, tip, discount, tax, cost
+    cost_input = Element('i_cost')
+    cost = float(safe_math_eval(cost_input.value))
+
+    total_w_discount_tax = (total - discount) * (tax / 100 + 1)
+    cost_w_discount_tax = cost * (total - discount) / total * (tax / 100 + 1)
+    
+    # Avoid division by zero if total_w_discount_tax is zero
+    perc_of_tip = 0
+    if total_w_discount_tax != 0:
+        perc_of_tip = round(cost_w_discount_tax / total_w_discount_tax * 100, 2)
+    
+    pay = round(cost_w_discount_tax + (cost_w_discount_tax / total_w_discount_tax * tip if total_w_discount_tax != 0 else 0), 2)
+
+    log_individual_cost = Element('individual_cost')
+    log_individual_cost.element.innerHTML += f'${cost:.2f} ➡️ ${pay:.2f} (includes {perc_of_tip:.1f}% of tip)\n'
+
+    progress_bar = Element('progress')
+    progress_bar.element.value = 100
+    progress_bar.element.className = "progress is-success"
 
 </py-script>
 					
@@ -274,18 +265,8 @@ def safe_math_eval(string):
 		</div>
 	</div>
 </div>
-<!-- bloc-2 END -->
-
 </div>
-<!-- Main container END -->
-    
-
-
-<!-- Additional JS -->
 <script src="../js/bootstrap.bundle.min.js?8179"></script>
 <script src="../js/blocs.min.js?639"></script>
-<script src="../js/lazysizes.min.js" defer></script><!-- Additional JS END -->
-
-
-</body>
+<script src="../js/lazysizes.min.js" defer></script></body>
 </html>
